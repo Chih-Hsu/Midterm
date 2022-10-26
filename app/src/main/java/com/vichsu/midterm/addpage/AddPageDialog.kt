@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.vichsu.midterm.data.Author
 import com.vichsu.midterm.databinding.FragmentAddArticleBinding
 
 class AddPageDialog : DialogFragment() {
@@ -23,8 +24,9 @@ class AddPageDialog : DialogFragment() {
         val viewModel = ViewModelProvider(this).get(AddPageViewModel::class.java)
 
         binding.addArticleButton.setOnClickListener {
-
-            viewModel.addData()
+            val author1 = Author("wayne@school.appworks.tw","waynechen323","AKA小安老師")
+            val author2 = Author("vichsu@gmaiil.com","vic123","許")
+            viewModel.addData(author1)
         }
 
         binding.textTitle.doAfterTextChanged {
@@ -35,14 +37,15 @@ class AddPageDialog : DialogFragment() {
             viewModel.setCategory(it.toString())
         }
 
-        binding.textCategory.doAfterTextChanged {
+        binding.textContent.doAfterTextChanged {
             viewModel.setContent(it.toString())
         }
 
         viewModel.navigationUp.observe(viewLifecycleOwner, Observer {
             if (it == true){
-                findNavController().navigateUp()
                 viewModel.doneNavigationUp()
+                findNavController().navigateUp()
+
             }
         })
 

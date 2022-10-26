@@ -12,67 +12,66 @@ import java.util.*
 class AddPageViewModel : ViewModel() {
 
 
-    val db = Firebase.firestore
-    private var title:String = ""
-    private var category:String = ""
-    private var content:String = ""
+    private val db = Firebase.firestore
+
 
     private var _navigationUp = MutableLiveData<Boolean>()
-    val navigationUp : LiveData<Boolean> get()= _navigationUp
+    val navigationUp: LiveData<Boolean> get() = _navigationUp
 
     private var _userRegistered = MutableLiveData<Boolean>()
-    val userRegistered : LiveData<Boolean> get() = _userRegistered
+    val userRegistered: LiveData<Boolean> get() = _userRegistered
 
-    fun setTitle(newTitle:String ){
+    private var title: String = ""
+    private var category: String = ""
+    private var content: String = ""
+
+    fun setTitle(newTitle: String) {
         title = newTitle
     }
 
-    fun setCategory(newCategory:String){
+    fun setCategory(newCategory: String) {
         category = newCategory
     }
 
-    fun setContent(newContent:String){
+    fun setContent(newContent: String) {
         content = newContent
     }
 
-    fun addData() {
-        val articles = FirebaseFirestore.getInstance()
-            .collection("articles")
-        val document = articles.document()
+    fun addData(author: Author) {
+        checkUser(author)
+        if (userRegistered.value == true) {
+            val articles = FirebaseFirestore.getInstance()
+                .collection("articles")
+            val document = articles.document()
 
-        val author1 = Author("wayne@school.appworks.tw","waynechen323","AKA小安老師")
-        val author2 = Author("vichsu@gmaiil.com","vic123","許")
-
-        checkUser(author2)
-
-        if (userRegistered.value == true){
-        val data = hashMapOf(
-            "author" to hashMapOf(
-                "email" to author2.email,
-                "id" to author2.id,
-                "name" to author2.name
-            ),
-            "title" to title,
-            "content" to content,
-            "createdTime" to Calendar.getInstance()
-                .timeInMillis,
-            "id" to document.id,
-            "category" to category
-        )
-        document.set(data)
-        _navigationUp.value = true}
+            val data = hashMapOf(
+                "author" to hashMapOf(
+                    "email" to author.email,
+                    "id" to author.id,
+                    "name" to author.name
+                ),
+                "title" to title,
+                "content" to content,
+                "createdTime" to Calendar.getInstance()
+                    .timeInMillis,
+                "id" to document.id,
+                "category" to category
+            )
+            document.set(data)
+            _navigationUp.value = true
+        }
     }
 
-    fun doneNavigationUp(){
+    fun doneNavigationUp() {
         _navigationUp.value = false
     }
 
-    private fun checkUser(author: Author){
-        db.collection("author").whereEqualTo("id",author.id).get().addOnSuccessListener {
+    private fun checkUser(author: Author) {
+        db.collection("author").whereEqualTo("id", author.id).get().addOnSuccessListener {
             _userRegistered.value = !it.isEmpty
 
         }.addOnFailureListener {
-          _userRegistered.value = false
+            _userRegistered.value = false
         }
     }
 }
