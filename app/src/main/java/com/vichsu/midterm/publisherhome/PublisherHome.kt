@@ -17,7 +17,7 @@ class PublisherHome : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentPublisherHomeBinding.inflate(inflater,container,false)
+        val binding = FragmentPublisherHomeBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this).get(PublisherViewModel::class.java)
 
         val adapter = PublisherAdapter()
@@ -28,16 +28,14 @@ class PublisherHome : Fragment() {
         })
 
         binding.addArticle.setOnClickListener {
-            this.findNavController().navigate(PublisherHomeDirections.actionPublisherHomeToAddPageDialog())
+            this.findNavController()
+                .navigate(PublisherHomeDirections.actionPublisherHomeToAddPageDialog())
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.loadData()
             binding.swipeRefreshLayout.isRefreshing = false
         }
-
-
-
 
         return binding.root
     }

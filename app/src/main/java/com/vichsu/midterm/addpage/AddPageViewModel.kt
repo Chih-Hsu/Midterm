@@ -14,7 +14,6 @@ class AddPageViewModel : ViewModel() {
 
     private val db = Firebase.firestore
 
-
     private var _navigationUp = MutableLiveData<Boolean>()
     val navigationUp: LiveData<Boolean> get() = _navigationUp
 

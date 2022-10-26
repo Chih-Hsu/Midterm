@@ -12,7 +12,7 @@ import java.util.*
 class PublisherViewModel : ViewModel() {
 
     private var _article = MutableLiveData<List<ArticleObject>>()
-    val article : LiveData<List<ArticleObject>> get() = _article
+    val article: LiveData<List<ArticleObject>> get() = _article
 
     private val articleData = Firebase.firestore.collection("articles")
 
@@ -20,37 +20,43 @@ class PublisherViewModel : ViewModel() {
 
         loadData()
 
-        }
+    }
 
-        fun loadData(){
-            articleData.addSnapshotListener { value, error ->
-                //初始化data
-                val dataList = mutableListOf<ArticleObject>()
-                value?.documents?.forEach {
+    fun loadData() {
+        articleData.addSnapshotListener { value, error ->
+            //初始化data
+            val dataList = mutableListOf<ArticleObject>()
+            value?.documents?.forEach { item ->
 
-                    val newData = it.data
-                    val authorData = newData?.get("author") as Map<String,String>
-                    val author = Author(authorData.get("email")!!,authorData.get("id")!!,authorData.get("name")!!)
-                    val newArticle = ArticleObject(
-                        author
-                        ,newData.get("title") as String
-                        ,newData.get("content") as String
-                        ,newData.get("createdTime") as Long
-                        ,newData.get("id") as String
-                        ,newData.get("category") as String
+                val newData = item.data
+                newData?.let {
+                    val authorData = it.get("author") as Map<String, String>
+                    val author = Author(
+                        authorData["email"].toString(),
+                        authorData["id"].toString(),
+                        authorData["name"].toString()
                     )
-
+                    val newArticle = ArticleObject(
+                        author,
+                        it["title"].toString(),
+                        it["content"].toString(),
+                        it["createdTime"] as Long,
+                        it["id"].toString(),
+                        it["category"].toString()
+                    )
                     dataList.add(newArticle)
-                    dataList.sortWith(Comparator { item1, item2 -> item2!!.createdTime.compareTo(item1!!.createdTime) })
-//                    dataList.sortedByDescending { newArticle.createdTime }
+                    dataList.sortWith(Comparator { item1, item2 ->
+                        item2.createdTime.compareTo(
+                            item1.createdTime
+                        )
+                    })
                     _article.value = dataList
                 }
+            }
 
         }
 
     }
-
-
 
 
 }
