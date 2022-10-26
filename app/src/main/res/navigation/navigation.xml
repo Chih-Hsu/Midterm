@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/publisherHome">
+    <fragment
+        android:id="@+id/publisherHome"
+        android:name="com.vichsu.midterm.publisherhome.PublisherHome"
+        android:label="PublisherHome" >
+        <action
+            android:id="@+id/action_publisherHome_to_addPageDialog"
+            app:destination="@id/addPageDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/addPageDialog"
+        android:name="com.vichsu.midterm.addpage.AddPageDialog"
+        android:label="AddPageDialog" />
+</navigation>
