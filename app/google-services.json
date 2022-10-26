@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "842964880247",
+    "project_id": "midterm-80dab",
+    "storage_bucket": "midterm-80dab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842964880247:android:92b17e65315b5759eeef72",
+        "android_client_info": {
+          "package_name": "com.vichsu.midterm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842964880247-aues0m0ma97k16578h2pg7lb5ksvia86.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0b8bcN9632mRQk6_12NBto-UMChbCzDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842964880247-aues0m0ma97k16578h2pg7lb5ksvia86.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

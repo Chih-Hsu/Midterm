@@ -47,13 +47,13 @@
             android:hint="content"
             android:paddingStart="8dp"
             android:gravity="top|left"
-            app:layout_constraintBottom_toTopOf="@+id/add_to_cart_button"
+            app:layout_constraintBottom_toTopOf="@+id/add_article_button"
             app:layout_constraintEnd_toEndOf="@id/text_title"
             app:layout_constraintStart_toStartOf="@id/text_title"
             app:layout_constraintTop_toBottomOf="@id/text_category" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/add_to_cart_button"
+            android:id="@+id/add_article_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/one_four"
